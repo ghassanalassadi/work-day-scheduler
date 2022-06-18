@@ -1,13 +1,10 @@
 // checks what the date is and displays it at the top of the page
 var currentDay = document.getElementById("currentDay");
-timeNow = moment().format("LLLL");
+var timeNow = moment();
+//var timeNow = moment().add(4, 'h'); // for testing
+var format = 'hh:mm:ss'; // desired time format
 currentDay.innerText = timeNow;
 
-// checks time of day and changes the color of the event fields depending on the time of day
-/*
-    start reference from 9AM and compare to time to see how much time has passed
-    and what the current time is.
-*/
 var slot9AM = document.getElementById("slot-9am");
 var slot10AM = document.getElementById("slot-10am");
 var slot11AM = document.getElementById("slot-11am");
@@ -18,22 +15,134 @@ var slot3PM = document.getElementById("slot-3pm");
 var slot4PM = document.getElementById("slot-4pm");
 var slot5PM = document.getElementById("slot-5pm");
 
-var timeFrom9AM = moment(9, 'hours').from();
-console.log(timeFrom9AM);
-if(timeFrom9AM < 0) {
-    slot9AM.classList.add('future');
-    slot10AM.classList.add('future');
-    slot11AM.classList.add('future');
-    slot12PM.classList.add('future');
-    slot1PM.classList.add('future');
-    slot2PM.classList.add('future');
-    slot3PM.classList.add('future');
-    slot4PM.classList.add('future');
-    slot5PM.classList.add('future');
-} else if (timeFrom9AM == 0) {
-
+/*
+    change classes based on the current time using a switch statement
+    time is checked using moment functions isBefore (to check if time is before 9am),
+    isBetween (to check if time is between specified slots) isAfter (to check if time is after 6pm)
+*/
+switch(true) {
+    case (timeNow.isBefore(moment({ hour: 9, minute: 0}))): // before 9am
+        slot9AM.classList.add('future');
+        slot10AM.classList.add('future');
+        slot11AM.classList.add('future');
+        slot12PM.classList.add('future');
+        slot1PM.classList.add('future');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('9:00:00', format), moment('10:00:00', format))): // at 9am
+        slot9AM.classList.add('present');
+        slot10AM.classList.add('future');
+        slot11AM.classList.add('future');
+        slot12PM.classList.add('future');
+        slot1PM.classList.add('future');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('10:00:00', format), moment('11:00:00', format))): // at 10am
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('present');
+        slot11AM.classList.add('future');
+        slot12PM.classList.add('future');
+        slot1PM.classList.add('future');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('11:00:00', format), moment('12:00:00', format))): // at 11am
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('present');
+        slot12PM.classList.add('future');
+        slot1PM.classList.add('future');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('12:00:00', format), moment('13:00:00', format))): // at 12pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('present');
+        slot1PM.classList.add('future');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('13:00:00', format), moment('14:00:00', format))): // at 1pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('present');
+        slot2PM.classList.add('future');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('14:00:00', format), moment('15:00:00', format))): // at 2pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('past');
+        slot2PM.classList.add('present');
+        slot3PM.classList.add('future');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('15:00:00', format), moment('16:00:00', format))): // at 3pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('past');
+        slot2PM.classList.add('past');
+        slot3PM.classList.add('present');
+        slot4PM.classList.add('future');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('16:00:00', format), moment('17:00:00', format))): // at 4pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('past');
+        slot2PM.classList.add('past');
+        slot3PM.classList.add('past');
+        slot4PM.classList.add('present');
+        slot5PM.classList.add('future');
+        break;
+    case (timeNow.isBetween(moment('17:00:00', format), moment('18:00:00', format))): // at 5pm
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('past');
+        slot2PM.classList.add('past');
+        slot3PM.classList.add('past');
+        slot4PM.classList.add('past');
+        slot5PM.classList.add('present');
+        break;
+    case (timeNow.isAfter(moment({ hour: 18, minute: 0}))):
+        slot9AM.classList.add('past');
+        slot10AM.classList.add('past');
+        slot11AM.classList.add('past');
+        slot12PM.classList.add('past');
+        slot1PM.classList.add('past');
+        slot2PM.classList.add('past');
+        slot3PM.classList.add('past');
+        slot4PM.classList.add('past');
+        slot5PM.classList.add('past');
+        break;
 }
-
 
 // create and save event to local storage
 // for 9AM
