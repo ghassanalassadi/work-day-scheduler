@@ -2,7 +2,7 @@
 var currentDay = document.getElementById("currentDay");
 var timeNow = moment();
 //var timeNow = moment().add(4, 'h'); // for testing
-var format = 'hh:mm:ss'; // desired time format
+var timeFormat = 'hh:mm:ss'; // desired time format
 currentDay.innerText = timeNow;
 
 var slot9AM = document.getElementById("slot-9am");
@@ -15,13 +15,13 @@ var slot3PM = document.getElementById("slot-3pm");
 var slot4PM = document.getElementById("slot-4pm");
 var slot5PM = document.getElementById("slot-5pm");
 
+
 /*
-    change classes based on the current time using a switch statement
-    time is checked using moment functions isBefore (to check if time is before 9am),
-    isBetween (to check if time is between specified slots) isAfter (to check if time is after 6pm)
+    change classes based on the current time using a switch statement. switch statement will check if each case is true
+    time is checked using moment functions isBefore, isBetween and isAfter
 */
 switch(true) {
-    case (timeNow.isBefore(moment({ hour: 9, minute: 0}))): // before 9am
+    case (timeNow.isBefore(moment({ hour: 9, minute: 0}))): // check if time is before 9am
         slot9AM.classList.add('future');
         slot10AM.classList.add('future');
         slot11AM.classList.add('future');
@@ -32,7 +32,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('9:00:00', format), moment('10:00:00', format))): // at 9am
+    case (timeNow.isBetween(moment('9:00:00', timeFormat), moment('10:00:00', timeFormat))): // at 9am
         slot9AM.classList.add('present');
         slot10AM.classList.add('future');
         slot11AM.classList.add('future');
@@ -43,7 +43,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('10:00:00', format), moment('11:00:00', format))): // at 10am
+    case (timeNow.isBetween(moment('10:00:00', timeFormat), moment('11:00:00', timeFormat))): // at 10am
         slot9AM.classList.add('past');
         slot10AM.classList.add('present');
         slot11AM.classList.add('future');
@@ -54,7 +54,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('11:00:00', format), moment('12:00:00', format))): // at 11am
+    case (timeNow.isBetween(moment('11:00:00', timeFormat), moment('12:00:00', timeFormat))): // at 11am
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('present');
@@ -65,7 +65,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('12:00:00', format), moment('13:00:00', format))): // at 12pm
+    case (timeNow.isBetween(moment('12:00:00', timeFormat), moment('13:00:00', timeFormat))): // at 12pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -76,7 +76,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('13:00:00', format), moment('14:00:00', format))): // at 1pm
+    case (timeNow.isBetween(moment('13:00:00', timeFormat), moment('14:00:00', timeFormat))): // at 1pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -87,7 +87,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('14:00:00', format), moment('15:00:00', format))): // at 2pm
+    case (timeNow.isBetween(moment('14:00:00', timeFormat), moment('15:00:00', timeFormat))): // at 2pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -98,7 +98,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('15:00:00', format), moment('16:00:00', format))): // at 3pm
+    case (timeNow.isBetween(moment('15:00:00', timeFormat), moment('16:00:00', timeFormat))): // at 3pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -109,7 +109,7 @@ switch(true) {
         slot4PM.classList.add('future');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('16:00:00', format), moment('17:00:00', format))): // at 4pm
+    case (timeNow.isBetween(moment('16:00:00', timeFormat), moment('17:00:00', timeFormat))): // at 4pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -120,7 +120,7 @@ switch(true) {
         slot4PM.classList.add('present');
         slot5PM.classList.add('future');
         break;
-    case (timeNow.isBetween(moment('17:00:00', format), moment('18:00:00', format))): // at 5pm
+    case (timeNow.isBetween(moment('17:00:00', timeFormat), moment('18:00:00', timeFormat))): // at 5pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -131,7 +131,7 @@ switch(true) {
         slot4PM.classList.add('past');
         slot5PM.classList.add('present');
         break;
-    case (timeNow.isAfter(moment({ hour: 18, minute: 0}))):
+    case (timeNow.isAfter(moment({ hour: 18, minute: 0}))): // check if time is after 6pm
         slot9AM.classList.add('past');
         slot10AM.classList.add('past');
         slot11AM.classList.add('past');
@@ -144,84 +144,84 @@ switch(true) {
         break;
 }
 
-// create and save event to local storage
-// for 9AM
+
+var eventInput9AM = document.getElementById("event-input-9am");
+eventInput9AM.value = localStorage.getItem("eventInput9AM");
+
 const saveBtn9AM = document.getElementById('save-btn-9am');
 saveBtn9AM.addEventListener('click', function() {
-    var eventInput9AM = document.getElementById("event-input-9am").value;
-    var eventOutput9AM = document.getElementById("event-output-9am");
-    localStorage.setItem('eventInput9AM', JSON.stringify(eventInput9AM));
-    eventOutput9AM.innerHTML = eventInput9AM;
+    localStorage.setItem('eventInput9AM', eventInput9AM.value);
 });
 
+
 // for 10AM
+var eventInput10AM = document.getElementById("event-input-10am");
+eventInput10AM.value = localStorage.getItem("eventInput10AM");
+
 const saveBtn10AM = document.getElementById('save-btn-10am');
 saveBtn10AM.addEventListener('click', function() {
-    var eventInput10AM = document.getElementById("event-input-10am").value;
-    var eventOutput10AM = document.getElementById("event-output-10am");
-    localStorage.setItem('eventInput10AM', JSON.stringify(eventInput10AM));
-    eventOutput10AM.innerHTML = eventInput10AM;
+    localStorage.setItem('eventInput10AM', eventInput10AM.value);
 });
 
 // for 11AM
+var eventInput11AM = document.getElementById("event-input-11am");
+eventInput11AM.value = localStorage.getItem("eventInput11AM");
+
 const saveBtn11AM = document.getElementById('save-btn-11am');
 saveBtn11AM.addEventListener('click', function() {
-    var eventInput11AM = document.getElementById("event-input-11am").value;
-    var eventOutput11AM = document.getElementById("event-output-11am");
-    localStorage.setItem('eventInput11AM', JSON.stringify(eventInput11AM));
-    eventOutput11AM.innerHTML = eventInput11AM;
+    localStorage.setItem('eventInput11AM', eventInput11AM.value);
 });
 
 // for 12PM
+var eventInput12PM = document.getElementById("event-input-12pm");
+eventInput12PM.value = localStorage.getItem("eventInput12PM");
+
 const saveBtn12PM = document.getElementById('save-btn-12pm');
 saveBtn12PM.addEventListener('click', function() {
-    var eventInput12PM = document.getElementById("event-input-12pm").value;
-    var eventOutput12PM = document.getElementById("event-output-12pm");
-    localStorage.setItem('eventInput12PM', JSON.stringify(eventInput12PM));
-    eventOutput12PM.innerHTML = eventInput12PM;
+    localStorage.setItem('eventInput12PM', eventInput12PM.value);
 });
 
 // for 1PM
+var eventInput1PM = document.getElementById("event-input-1pm");
+eventInput1PM.value = localStorage.getItem("eventInput1PM");
+
 const saveBtn1PM = document.getElementById('save-btn-1pm');
 saveBtn1PM.addEventListener('click', function() {
-    var eventInput1PM = document.getElementById("event-input-1pm").value;
-    var eventOutput1PM = document.getElementById("event-output-1pm");
-    localStorage.setItem('eventInput1PM', JSON.stringify(eventInput1PM));
-    eventOutput1PM.innerHTML = eventInput1PM;
+    localStorage.setItem('eventInput1PM', eventInput1PM.value);
 });
 
 // for 2PM
+var eventInput2PM = document.getElementById("event-input-2pm");
+eventInput2PM.value = localStorage.getItem("eventInput2PM");
+
 const saveBtn2PM = document.getElementById('save-btn-2pm');
 saveBtn2PM.addEventListener('click', function() {
-    var eventInput2PM = document.getElementById("event-input-2pm").value;
-    var eventOutput2PM = document.getElementById("event-output-2pm");
-    localStorage.setItem('eventInput2PM', JSON.stringify(eventInput2PM));
-    eventOutput2PM.innerHTML = eventInput2PM;
+    localStorage.setItem('eventInput2PM', eventInput2PM.value);
 });
 
 // for 3PM
+var eventInput3PM = document.getElementById("event-input-3pm");
+eventInput3PM.value = localStorage.getItem("eventInput3PM");
+
 const saveBtn3PM = document.getElementById('save-btn-3pm');
 saveBtn3PM.addEventListener('click', function() {
-    var eventInput3PM = document.getElementById("event-input-3pm").value;
-    var eventOutput3PM = document.getElementById("event-output-3pm");
-    localStorage.setItem('eventInput3PM', JSON.stringify(eventInput3PM));
-    eventOutput3PM.innerHTML = eventInput3PM;
+    localStorage.setItem('eventInput3PM', eventInput3PM.value);
 });
 
 // for 4PM
+var eventInput4PM = document.getElementById("event-input-4pm");
+eventInput4PM.value = localStorage.getItem("eventInput4PM");
+
 const saveBtn4PM = document.getElementById('save-btn-4pm');
 saveBtn4PM.addEventListener('click', function() {
-    var eventInput4PM = document.getElementById("event-input-4pm").value;
-    var eventOutput4PM = document.getElementById("event-output-4pm");
-    localStorage.setItem('eventInput4PM', JSON.stringify(eventInput4PM));
-    eventOutput4PM.innerHTML = eventInput4PM;
+    localStorage.setItem('eventInput4PM', eventInput4PM.value);
 });
 
 // for 5PM
+var eventInput5PM = document.getElementById("event-input-5pm");
+eventInput5PM.value = localStorage.getItem("eventInput5PM");
+
 const saveBtn5PM = document.getElementById('save-btn-5pm');
 saveBtn5PM.addEventListener('click', function() {
-    var eventInput5PM = document.getElementById("event-input-5pm").value;
-    var eventOutput5PM = document.getElementById("event-output-5pm");
-    localStorage.setItem('eventInput5PM', JSON.stringify(eventInput5PM));
-    eventOutput5PM.innerHTML = eventInput5PM;
+    localStorage.setItem('eventInput5PM', eventInput5PM.value);
 });
